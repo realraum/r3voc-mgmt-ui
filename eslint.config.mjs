@@ -11,6 +11,7 @@ import react from "eslint-plugin-react";
 
 import _import from "eslint-plugin-import";
 import muiPathImports from "eslint-plugin-mui-path-imports";
+import reactHooks from "eslint-plugin-react-hooks";
 
 import {FlatCompat} from "@eslint/eslintrc";
 
@@ -27,12 +28,14 @@ const compat = new FlatCompat({
 
 export default tseslint.config(
     eslintPluginUnicorn.configs.recommended,
+    reactHooks.configs['recommended-latest'],
     {
         ignores: [
             "**/node_modules/",
             "**/dist",
             "**/public",
             "**/generated",
+            "**/schedule.d.ts",
         ],
     }, ...fixupConfigRules(compat.extends(
         "eslint:recommended",

@@ -9,11 +9,22 @@ export interface ApiFetchWrapperProps {
 }
 
 const ApiFetchWrapper: FC<ApiFetchWrapperProps> = ({ children }) => {
+    const user = useApiStore(state => state.user);
+
     const fetchUser = useApiStore(state => state.fetchUser);
+    const fetchSchedule = useApiStore(state => state.fetchSchedule);
+    const fetchFiles = useApiStore(state => state.fetchFiles);
 
     useEffect(() => {
         fetchUser();
-    }, []);
+    }, [fetchUser]);
+
+    useEffect(() => {
+        if (user) {
+            fetchSchedule();
+            fetchFiles();
+        }
+    }, [fetchSchedule, user, fetchFiles]);
 
     return <>{children}</>;
 };

@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useState } from 'react';
 import { Link, Outlet } from 'react-router';
 
 import AppBar from '@mui/material/AppBar';
@@ -7,11 +8,22 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+import RefreshIcon from '@mui/icons-material/Refresh';
+
 import { useApiStore } from '@/stores/apistore';
 
 const RootLayout: FC = () => {
     const user = useApiStore(state => state.user);
     const logout = useApiStore(state => state.logout);
+    const refreshSchedule = useApiStore(state => state.refreshSchedule);
+
+    const [scheduleLoading, setScheduleLoading] = useState<boolean>(false);
+
+    const handleRefreshSchedule = async (): Promise<void> => {
+        setScheduleLoading(true);
+        await refreshSchedule();
+        setScheduleLoading(false);
+    };
 
     return (
         <>
@@ -26,6 +38,18 @@ const RootLayout: FC = () => {
                         }}
                     >
                         <Typography>r3voc Management UI</Typography>
+                        <Box>
+                            <Button
+                                color="secondary"
+                                variant="contained"
+                                size="small"
+                                onClick={handleRefreshSchedule}
+                                loading={scheduleLoading}
+                                startIcon={<RefreshIcon />}
+                            >
+                                Refresh schedule.xml from c3voc import tool
+                            </Button>
+                        </Box>
                         <Box>
                             {user ? (
                                 <Box

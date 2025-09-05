@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
 import type { FC } from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import Alert from '@mui/material/Alert';
@@ -11,22 +10,16 @@ import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 
+import PasswordInput from '@/components/PasswordInput';
 import { useApiStore } from '@/stores/apistore';
 
 const LoginPage: FC = () => {
     const login = useApiStore(state => state.login);
-    const user = useApiStore(state => state.user);
 
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        if (user) {
-            navigate('/');
-        }
-    }, [user, navigate]);
 
     const handleSubmit = async (
         event: React.FormEvent<HTMLFormElement>,
@@ -80,13 +73,12 @@ const LoginPage: FC = () => {
                             autoFocus
                             disabled={loading}
                         />
-                        <TextField
+                        <PasswordInput
                             margin="normal"
                             required
                             fullWidth
                             name="password"
                             label="Password"
-                            type="password"
                             id="password"
                             autoComplete="current-password"
                             disabled={loading}

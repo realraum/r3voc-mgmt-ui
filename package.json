@@ -44,6 +44,7 @@
     "@fontsource/geist": "^5.2.6",
     "@mui/icons-material": "^7.3.2",
     "@mui/material": "^7.3.2",
+    "axios": "^1.11.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "react": "^19.1.1",
@@ -57,9 +58,7 @@
     "preview": "vite preview",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
-    "generate:schema:fetch": "curl https://c3voc.de/schedule/schema.json -o .schedule.schema.json",
-    "generate:schema:json2ts": "node schedule.mjs",
-    "generate:schema": "yarn generate:schema:fetch && yarn generate:schema:json2ts",
+    "generate:schema": "node schedule.mjs",
     "postinstall": "yarn generate:schema",
     "typecheck": "tsc --noEmit --project tsconfig.app.json"
   }

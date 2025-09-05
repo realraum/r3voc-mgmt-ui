@@ -1,5 +1,15 @@
 import type { FC } from 'react';
 
-const HomePage: FC = () => <div>HomePage</div>;
+import Box from '@mui/material/Box';
+
+import FileUploadComponent from '@/components/FileUploadComponent';
+import TalkListing from '@/components/TalkListing';
+
+const HomePage: FC = () => (
+    <Box>
+        <FileUploadComponent />
+        <TalkListing />
+    </Box>
+);
 
 export default HomePage;

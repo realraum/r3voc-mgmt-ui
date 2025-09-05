@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 
 import ApiFetchWrapper from '@/components/ApiFetchWrapper';
-import PrivateRoutes from '@/components/PrivateRoutes';
+import RestrictedRoute from '@/components/RestrictedRoute';
 import RootLayout from '@/layout/RootLayout';
 import HomePage from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
@@ -22,10 +22,20 @@ createRoot(document.querySelector('#root')!).render(
                 <ApiFetchWrapper>
                     <Routes>
                         <Route element={<RootLayout />}>
-                            <Route element={<PrivateRoutes />}>
+                            <Route
+                                element={
+                                    <RestrictedRoute type="loginRequired" />
+                                }
+                            >
                                 <Route index element={<HomePage />} />
                             </Route>
-                            <Route path="login" element={<LoginPage />} />
+                            <Route
+                                element={
+                                    <RestrictedRoute type="loginProhibited" />
+                                }
+                            >
+                                <Route path="login" element={<LoginPage />} />
+                            </Route>
                         </Route>
                     </Routes>
                 </ApiFetchWrapper>
