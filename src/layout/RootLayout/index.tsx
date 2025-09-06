@@ -38,18 +38,20 @@ const RootLayout: FC = () => {
                         }}
                     >
                         <Typography>r3voc Management UI</Typography>
-                        <Box>
-                            <Button
-                                color="secondary"
-                                variant="contained"
-                                size="small"
-                                onClick={handleRefreshSchedule}
-                                loading={scheduleLoading}
-                                startIcon={<RefreshIcon />}
-                            >
-                                Refresh schedule.xml from c3voc import tool
-                            </Button>
-                        </Box>
+                        {user ? (
+                            <Box>
+                                <Button
+                                    color="secondary"
+                                    variant="contained"
+                                    size="small"
+                                    onClick={handleRefreshSchedule}
+                                    loading={scheduleLoading}
+                                    startIcon={<RefreshIcon />}
+                                >
+                                    Refresh schedule.xml from c3voc import tool
+                                </Button>
+                            </Box>
+                        ) : null}
                         <Box>
                             {user ? (
                                 <Box
