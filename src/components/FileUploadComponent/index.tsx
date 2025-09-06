@@ -72,6 +72,9 @@ const FileUploadComponent: FC = () => {
                 onUploadProgress: progressEvent => {
                     if (progressEvent.total) {
                         setBytesUploaded(progressEvent.loaded);
+                        console.log(
+                            `Upload progress: ${progressEvent.loaded} / ${progressEvent.total}`,
+                        );
                     }
                 },
             });
@@ -149,7 +152,7 @@ const FileUploadComponent: FC = () => {
                     value={progress}
                     sx={{ height: 10, borderRadius: 5, marginBottom: 2 }}
                 />
-                {progress}% / 100% ({bytesUploaded} / {fileSize ?? 0} bytes)
+                {progress}% / 100%
             </Box>
             <Divider sx={{ mb: 2 }} />
             <form onSubmit={handleFormSubmit}>
