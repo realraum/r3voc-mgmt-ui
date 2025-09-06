@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useMemo } from 'react';
 import { Navigate, Outlet } from 'react-router';
 
-import { useApiStore } from '@/stores/apistore';
+import { useApiStore } from '@/stores/api-store';
 
 export interface RestrictedRouteProps {
     type: 'loginRequired' | 'loginProhibited';

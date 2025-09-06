@@ -5,6 +5,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
@@ -12,10 +13,14 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import FileListing from '@/components/FileListing';
-import { useApiStore } from '@/stores/apistore';
+import { useApiStore } from '@/stores/api-store';
+import { useUiStore } from '@/stores/ui-store';
 
 const TalkListing: FC = () => {
     const schedule = useApiStore(state => state.schedule);
+    const setSelectedGuid = useUiStore(
+        state => state.setSelectedTalkImportGuid,
+    );
 
     const [sortMode, setSortMode] = useState<'date-asc' | 'date-desc'>(
         'date-desc',
@@ -140,6 +145,14 @@ const TalkListing: FC = () => {
                                     'No description provided.'
                                 }
                             />
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                sx={{ my: 1 }}
+                                onClick={() => setSelectedGuid(talk.guid)}
+                            >
+                                Select this talk for upload
+                            </Button>
                             <FileListing guid={talk.guid} />
                         </AccordionDetails>
                     </Accordion>

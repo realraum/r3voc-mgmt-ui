@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import { useApiStore } from '@/stores/apistore';
+import { useApiStore } from '@/stores/api-store';
 
 export interface FileListingProps {
     guid: string;

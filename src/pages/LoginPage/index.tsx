@@ -11,7 +11,7 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 
 import PasswordInput from '@/components/PasswordInput';
-import { useApiStore } from '@/stores/apistore';
+import { useApiStore } from '@/stores/api-store';
 
 const LoginPage: FC = () => {
     const login = useApiStore(state => state.login);

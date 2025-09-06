@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 import * as React from 'react';
 
-import { useApiStore } from '@/stores/apistore';
+import { useApiStore } from '@/stores/api-store';
 
 export interface ApiFetchWrapperProps {
     children: React.ReactNode;

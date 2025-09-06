@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 
 import RefreshIcon from '@mui/icons-material/Refresh';
 
-import { useApiStore } from '@/stores/apistore';
+import { useApiStore } from '@/stores/api-store';
 
 const RootLayout: FC = () => {
     const user = useApiStore(state => state.user);

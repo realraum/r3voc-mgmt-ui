@@ -15,7 +15,8 @@ import Typography from '@mui/material/Typography';
 
 import axios from 'axios';
 
-import { useApiStore } from '@/stores/apistore';
+import { useApiStore } from '@/stores/api-store';
+import { useUiStore } from '@/stores/ui-store';
 
 const FileUploadComponent: FC = () => {
     const schedule = useApiStore(state => state.schedule);
@@ -26,7 +27,12 @@ const FileUploadComponent: FC = () => {
     const [uploadError, setUploadError] = useState<string | null>(null);
 
     const [searchTerm, setSearchTerm] = useState<string>('');
-    const [selectedGuid, setSelectedGuid] = useState<string>('');
+
+    const selectedGuid =
+        useUiStore(state => state.selectedTalkImportGuid) || '';
+    const setSelectedGuid = useUiStore(
+        state => state.setSelectedTalkImportGuid,
+    );
 
     const progress = useMemo(
         () => Math.round(fileSize ? (bytesUploaded / fileSize) * 100 : 0),
@@ -162,6 +168,11 @@ const FileUploadComponent: FC = () => {
                                     required
                                 />
                             )}
+                            value={
+                                scheduleOptions.find(
+                                    option => option.guid === selectedGuid,
+                                ) || null
+                            }
                             onChange={(_, value) => {
                                 setSelectedGuid(value?.guid || '');
                             }}
