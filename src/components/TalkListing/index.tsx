@@ -1,10 +1,12 @@
 import type { FC } from 'react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -15,16 +17,48 @@ import { useApiStore } from '@/stores/apistore';
 const TalkListing: FC = () => {
     const schedule = useApiStore(state => state.schedule);
 
-    const talks = useMemo(
-        () =>
+    const [sortMode, setSortMode] = useState<'date-asc' | 'date-desc'>(
+        'date-desc',
+    );
+
+    const talks = useMemo(() => {
+        const allTalks =
             schedule?.conference.days.flatMap(day =>
                 Object.values(day.rooms).flat(),
-            ),
-        [schedule],
-    );
+            ) || [];
+
+        return sortMode === 'date-asc'
+            ? allTalks.sort((a, b) => {
+                  if (!a.date) return 1;
+                  if (!b.date) return -1;
+                  return (
+                      new Date(a.date).getTime() - new Date(b.date).getTime()
+                  );
+              })
+            : allTalks.sort((a, b) => {
+                  if (!a.date) return 1;
+                  if (!b.date) return -1;
+                  return (
+                      new Date(b.date).getTime() - new Date(a.date).getTime()
+                  );
+              });
+    }, [schedule, sortMode]);
 
     return (
         <Box display="flex" flexDirection="column" gap={1} my={2}>
+            <FormControlLabel
+                control={
+                    <Switch
+                        checked={sortMode === 'date-asc'}
+                        onChange={() =>
+                            setSortMode(prev =>
+                                prev === 'date-asc' ? 'date-desc' : 'date-asc',
+                            )
+                        }
+                    />
+                }
+                label={`Sort by date: ${sortMode === 'date-asc' ? 'Ascending' : 'Descending'}`}
+            />
             {talks?.map(talk => {
                 const date = talk.date
                     ? new Date(talk.date).toLocaleString('en-US', {
