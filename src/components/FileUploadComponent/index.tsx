@@ -149,7 +149,7 @@ const FileUploadComponent: FC = () => {
                     value={progress}
                     sx={{ height: 10, borderRadius: 5, marginBottom: 2 }}
                 />
-                {progress}% / 100%
+                {progress}% / 100% ({bytesUploaded} / {fileSize ?? 0} bytes)
             </Box>
             <Divider sx={{ mb: 2 }} />
             <form onSubmit={handleFormSubmit}>
